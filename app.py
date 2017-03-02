@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import Flask
+from flask import Flask, redirect, url_for
+from forms import RegistrationForm
 import configparser
 
 app = Flask(__name__)
@@ -14,8 +15,12 @@ app.secret_key = config['DEFAULT']['SECRET_KEY']
 
 
 @app.route("/")
-def hello():
-    return 'hello world'
+def login():
+    return redirect(url_for(signup))
+
+@app.route("/")
+def signup():
+    return 'esto es el registro'
 
 
 
