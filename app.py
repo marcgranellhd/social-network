@@ -1,20 +1,23 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, jsonify
-from models import db, User
+from flask import Flask
+import configparser
+
 app = Flask(__name__)
+config = configparser.ConfigParser()
+config.read('.env')
+
+app.debug = config['DEFAULT']['DEBUG']
+app.secret_key = config['DEFAULT']['SECRET_KEY']
+
+
+
 
 
 @app.route("/")
-def signup():
-    return render_template('signup.html')
+def hello():
+    return 'hello world'
 
-
-@app.route("/comprobarEmail/<email>")
-def buscar(email):
-    num_resultados = User.query.filter_by(email=email).count()
-    return str(num_resultados)
 
 
 if __name__ == "__main__":
-    app.debug = True
     app.run()
